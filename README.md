@@ -24,7 +24,7 @@ export default tseslint.config({
   languageOptions: {
     // other options...
     parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      project: ["./tsconfig.node.json", "./tsconfig.app.json"],
       tsconfigRootDir: import.meta.dirname,
     },
   },
@@ -35,20 +35,94 @@ You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-re
 
 ```js
 // eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+import reactX from "eslint-plugin-react-x"
+import reactDom from "eslint-plugin-react-dom"
 
 export default tseslint.config({
   plugins: {
     // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
+    "react-x": reactX,
+    "react-dom": reactDom,
   },
   rules: {
     // other rules...
     // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
+    ...reactX.configs["recommended-typescript"].rules,
     ...reactDom.configs.recommended.rules,
   },
 })
 ```
+
+Определить области хранения данных:
+-база данных на JSON Server
+-BFF (посредник между клиентом и сервером)
+-Redux Store на клиенте.
+
+Определить сущности приложения и место для хранения их данных:
+Пользователь: БД (весь список), BFF (сессия текущего), Redux Store (отображение в браузере)
+-Роль пользователя: БД (весь список), BFF (сессия текущего пользователя), Redux Store (отображение в браузере)
+-Статья: БД (весь список), Redux Store (отображение в браузере)
+-Комментарий: БД (весь список), Redux Store (отображение в браузере)
+
+Определить таблицы БД и их схемы:
+
+Пользователи (users):
+id
+login
+password
+registered_at
+role_id
+
+Роли (roles):
+id
+name
+
+Статьи (posts):
+id
+title
+image_url
+content
+published_at
+
+Комментарии (comments):
+id
+author_id
+post_id
+content
+
+Определить схему состояния на BFF.
+сессия текущего пользователя:
+login
+password
+role
+
+Определить схему для Redux Store.
+user:
+id
+login
+roleId
+
+posts: массив post:
+id
+title
+imageUrl
+publishedAt
+commentsCount
+
+post:
+id
+title
+imageUrl
+content
+publishedAt
+comments: массив comment:
+id
+author
+content
+publishedAt
+
+users: массив user:
+id
+login
+registeredAt
+role
