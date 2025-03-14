@@ -15,3 +15,15 @@ export interface AuthResponse {
   error: string | null
   res: Session | null
 }
+
+export interface HeaderProps {
+  className?: string
+}
+
+export interface IconContainerProps {
+  className?: string
+  id: string
+  size?: string
+  margin?: string
+  onClick?: () => void
+}
