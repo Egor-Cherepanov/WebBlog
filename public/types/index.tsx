@@ -27,3 +27,17 @@ export interface IconContainerProps {
   margin?: string
   onClick?: () => void
 }
+
+export interface FooterProps {
+  className?: string
+}
+
+export interface WeatherData {
+  name: string
+  main: {
+    temp: number
+  }
+  weather: Array<{
+    description: string
+  }>
+}

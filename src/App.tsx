@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import { Header } from "./components"
+import { Header, Footer } from "./components"
 import styled from "styled-components"
 
 const AppColumn = styled.div`
@@ -21,7 +21,7 @@ const H2 = styled.h2`
 `
 
 // const Header = () => <div>Header</div>
-const Footer = () => <div>Footer</div>
+// const Footer = () => <div>Footer</div>
 
 function Blog() {
   return (
