@@ -1,4 +1,4 @@
-export * from "./bff"
+export * from "./server"
 export * from "./generate-date"
 export * from "./get-users"
 export * from "./get-user"

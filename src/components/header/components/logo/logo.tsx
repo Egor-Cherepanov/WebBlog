@@ -1,4 +1,4 @@
-import { HeaderProps } from "../../../../../public/types"
+import { ContainerProps } from "../../../../../public/types"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { Icon } from "../../../index"
@@ -14,7 +14,7 @@ const SmallText = styled.div`
   font-weight: bold;
 `
 
-const LogoContainer: React.FC<HeaderProps> = ({ className }) => (
+const LogoContainer: React.FC<ContainerProps> = ({ className }) => (
   <Link className={className} to="/">
     <Icon size="70px" margin="0 10px 0 0" id="fa-code" />
     <div>

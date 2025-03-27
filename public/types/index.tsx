@@ -2,21 +2,30 @@ export interface User {
   id: string
   login: string
   password: string
-  registered_at: string
+  registered_at?: string
   role_id: number
+  session?: string
 }
 
 export interface Session {
   logOut: () => void
   removeComment?: () => void
+  [key: string]: (() => void) | undefined
+}
+
+export interface Response {
+  session: Session
+  id: string
+  login: string
+  roleId: number
 }
 
 export interface AuthResponse {
   error: string | null
-  res: Session | null
+  res: Response | null
 }
 
-export interface HeaderProps {
+export interface ContainerProps {
   className?: string
 }
 
@@ -40,4 +49,9 @@ export interface WeatherData {
   weather: Array<{
     description: string
   }>
+}
+
+export interface AuthFormData {
+  login: string
+  password: string
 }

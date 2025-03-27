@@ -1,4 +1,4 @@
-import { HeaderProps } from "../../../public/types"
+import { ContainerProps } from "../../../public/types"
 import { Logo, ControlPanel } from "./components"
 import styled from "styled-components"
 
@@ -7,7 +7,7 @@ const Discription = styled.div`
   font-weight: 400;
 `
 
-const HeaderContainer: React.FC<HeaderProps> = ({ className }) => {
+const HeaderContainer: React.FC<ContainerProps> = ({ className }) => {
   return (
     <header className={className}>
       <Logo />

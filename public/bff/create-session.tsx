@@ -1,15 +1,15 @@
-import { Session } from "../types"
+import { Session, User } from "../types"
 import { removeComment } from "./session"
 import { ROLE } from "../constants"
 
-export const createSession = (roleId: number): Session => {
+export const addSession = (user: User): Session => {
   const session: Session = {
     logOut() {
       Object.keys(session).forEach((key) => delete session[key])
     },
   }
 
-  switch (roleId) {
+  switch (user.role_id) {
     case ROLE.ADMIN: {
       session.removeComment = removeComment
       break

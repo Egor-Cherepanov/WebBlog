@@ -2,7 +2,7 @@
   "users": [
     {
       "id": "001",
-      "login": "egor_cherepanov",
+      "login": "egor",
       "password": "qwerty123",
       "registered_at": "2025-03-11",
       "role_id": 0

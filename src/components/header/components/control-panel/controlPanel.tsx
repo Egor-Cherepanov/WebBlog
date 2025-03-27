@@ -1,31 +1,60 @@
-import { HeaderProps } from "../../../../../public/types"
-import { Icon } from "../../../icon/icon"
+import { ROLE } from "../../../../../public/constants"
+import { useSelector, useDispatch } from "react-redux"
+import {
+  selectUserRole,
+  selectUserLogin,
+  selectUserSession,
+} from "../../../../../src/selectors"
+import { ContainerProps } from "../../../../../public/types"
+import { Icon, Button } from "../../../../components"
 import { Link, useNavigate } from "react-router-dom"
+import { logout } from "../../../../actions"
 import styled from "styled-components"
 
 const RightAligned = styled.div`
   display: flex;
-  justify-content: flex-end;
-`
-
-const StyledLink = styled(Link)`
-  display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 18px;
-  width: 100px;
-  height: 32px;
-  border: 1px solid #000;
-  background-color: #eee;
 `
 
-const ControlPanelContainer: React.FC<HeaderProps> = ({ className }) => {
+const UserName = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+`
+
+const StyledLogoutIcon = styled.div`
+  font-size: 24px
+  margin: 0 0 0px 10px;
+  cursor: pointer;
+`
+
+const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const roleId = useSelector(selectUserRole)
+  const login = useSelector(selectUserLogin)
+  const session = useSelector(selectUserSession)
 
   return (
     <div className={className}>
       <RightAligned>
-        <StyledLink to="/login">Войти</StyledLink>
+        {roleId === ROLE.GUEST ? (
+          <Button as={Link} to="/login">
+            Войти
+          </Button>
+        ) : (
+          <>
+            <UserName>{login}</UserName>
+            <StyledLogoutIcon onClick={() => dispatch(logout(session))}>
+              <Icon id="fa-sign-out" margin="0 0 0 10px" />
+            </StyledLogoutIcon>
+            {/* <StyledLogoutIcon
+              className="fa fa-sign-out"
+              // margin="0 0 10px 10px"
+              onClick={() => dispatch(logout(session))}
+            /> */}
+          </>
+        )}
       </RightAligned>
       <RightAligned>
         <Icon
