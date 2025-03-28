@@ -39,24 +39,24 @@ export const server = {
   },
 
   async register(regLogin: string, regPassword: string): Promise<AuthResponse> {
-    const user = await getUser(regLogin)
+    const existedUser = await getUser(regLogin)
 
-    if (user) {
+    if (existedUser) {
       return {
         error: "Такой логин уже существует",
         res: null,
       }
     }
 
-    const newUser = await addUser(regLogin, regPassword)
+    const user = await addUser(regLogin, regPassword)
 
     return {
       error: null,
       res: {
-        session: sessions.create(newUser),
-        id: newUser.id,
-        login: newUser.login,
-        roleId: newUser.role_id,
+        session: sessions.create(user),
+        id: user.id,
+        login: user.login,
+        roleId: user.role_id,
       },
     }
   },

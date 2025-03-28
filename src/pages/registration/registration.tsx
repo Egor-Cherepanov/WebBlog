@@ -1,37 +1,32 @@
 import { useForm } from "react-hook-form"
-import { authFormSchema } from "../../../public/FormSchems"
+import { registerFormSchema } from "../../../public/FormSchems"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { server } from "../../../public/bff"
 import { useState } from "react"
 import { selectUserRole } from "../../selectors"
 import { useDispatch, useSelector } from "react-redux"
-import { ContainerProps, AuthFormData, User } from "../../../public/types"
+import { ContainerProps, RegisterFormData, User } from "../../../public/types"
 import { Input, Button, H2, ErrorMessage } from "../../components"
 import styled from "styled-components"
-import { Link, Navigate } from "react-router-dom"
+import { Navigate } from "react-router-dom"
 import { setUser } from "../../actions"
 import { useResetForm } from "../../../public/hooks"
+
 import { ROLE } from "../../../public/constants"
 
-const StyledLink = styled(Link)`
-  text-align: center;
-  text-decoration: underline;
-  margin: 20px 0;
-  font-size: 18px;
-`
-
-const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
+const RegistrationContainer: React.FC<ContainerProps> = ({ className }) => {
   const {
     register,
     reset,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthFormData>({
+  } = useForm<RegisterFormData>({
     defaultValues: {
       login: "",
       password: "",
+      passcheck: "",
     },
-    resolver: yupResolver(authFormSchema),
+    resolver: yupResolver(registerFormSchema),
   })
 
   const [serverError, setServerError] = useState<string>("")
@@ -40,9 +35,9 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
 
   useResetForm(reset)
 
-  const onSubmit = (data: AuthFormData) => {
+  const onSubmit = (data: RegisterFormData) => {
     const { login, password } = data
-    server.authorize(login, password).then(({ error, res }) => {
+    server.register(login, password).then(({ error, res }) => {
       if (error) {
         setServerError(`Ошибка запроса ${error}`)
         return
@@ -61,7 +56,10 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
     })
   }
 
-  const formError = errors?.login?.message || errors?.password?.message
+  const formError =
+    errors?.login?.message ||
+    errors?.password?.message ||
+    errors?.passcheck?.message
   const errorMessage = formError || serverError
 
   if (roleId !== ROLE.GUEST) {
@@ -70,7 +68,7 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <H2>Авторизация</H2>
+      <H2>Регистрация</H2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           type="text"
@@ -86,18 +84,23 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
             onChange: () => setServerError(""),
           })}
         />
+        <Input
+          type="password"
+          placeholder="Проверка пароля..."
+          {...register("passcheck", {
+            onChange: () => setServerError(""),
+          })}
+        />
         <Button type="submit" disabled={!!formError}>
           Авторизоваться
         </Button>
         {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
-
-        <StyledLink to="/register">Регистрация</StyledLink>
       </form>
     </div>
   )
 }
 
-export const Authorization = styled(AuthorizationContainer)`
+export const Registration = styled(RegistrationContainer)`
   display: flex;
   align-items: center;
   flex-direction: column;

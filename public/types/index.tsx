@@ -55,3 +55,14 @@ export interface AuthFormData {
   login: string
   password: string
 }
+
+export interface AuthFormData {
+  login: string
+  password: string
+}
+
+export interface RegisterFormData {
+  login: string
+  password: string
+  passcheck: string
+}

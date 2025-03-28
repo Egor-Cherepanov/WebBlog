@@ -15,4 +15,4 @@ export const addUser = async (
       registered_at: generateDate(),
       role_id: 2,
     }),
-  })
+  }).then((newUserData) => newUserData.json())
