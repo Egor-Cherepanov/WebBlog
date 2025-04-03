@@ -52,9 +52,10 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
         const user: User = {
           id: res.id,
           login: res.login,
-          password: "",
+          password: res.password,
           registered_at: new Date().toISOString(),
-          role_id: res.roleId,
+          role_id: res.role_id,
+          session: res.session,
         }
         dispatch(setUser(user))
       }

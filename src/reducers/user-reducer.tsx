@@ -3,10 +3,10 @@ import { User } from "../../public/types"
 import { ACTION_TYPE } from "../actions"
 
 const initialUserState = {
-  session: null,
   id: null,
   login: null,
   role_id: ROLE.GUEST,
+  session: null,
 }
 
 type Action = { type: string; payload: User }

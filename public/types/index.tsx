@@ -2,7 +2,7 @@ export interface User {
   id: string
   login: string
   password: string
-  registered_at?: string
+  registered_at: string
   role_id: number
   session?: string
 }
@@ -14,10 +14,11 @@ export interface Session {
 }
 
 export interface Response {
-  session: Session
+  session: string
   id: string
   login: string
-  roleId: number
+  role_id: number
+  password: string
 }
 
 export interface AuthResponse {
@@ -34,6 +35,7 @@ export interface IconContainerProps {
   id: string
   size?: string
   margin?: string
+  disabled?: boolean
   onClick?: () => void
 }
 
@@ -65,4 +67,18 @@ export interface RegisterFormData {
   login: string
   password: string
   passcheck: string
+}
+
+export interface Role {
+  id: number
+  name: string
+}
+
+export interface UserRowProps extends ContainerProps {
+  login: string
+  id: string
+  registered_at?: string
+  userRoleId: number
+  roles?: Role[]
+  onUsersRemove: () => void
 }

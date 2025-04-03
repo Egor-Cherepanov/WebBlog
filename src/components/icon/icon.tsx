@@ -17,5 +17,7 @@ const IconContainer: React.FC<IconContainerProps> = ({
 export const Icon = styled(IconContainer)<IconContainerProps>`
   font-size: ${({ size }) => size || "24px"};
   margin: ${({ margin }) => margin || 0};
+  color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
+
   cursor: pointer;
 `

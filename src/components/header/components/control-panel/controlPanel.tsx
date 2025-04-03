@@ -48,11 +48,6 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
             <StyledLogoutIcon onClick={() => dispatch(logout(session))}>
               <Icon id="fa-sign-out" margin="0 0 0 10px" />
             </StyledLogoutIcon>
-            {/* <StyledLogoutIcon
-              className="fa fa-sign-out"
-              // margin="0 0 10px 10px"
-              onClick={() => dispatch(logout(session))}
-            /> */}
           </>
         )}
       </RightAligned>

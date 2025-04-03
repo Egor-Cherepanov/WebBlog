@@ -1,4 +1,4 @@
-import { generateDate } from "./index"
+import { generateDate } from "../utils"
 
 export const addUser = async (
   regLogin: string,
