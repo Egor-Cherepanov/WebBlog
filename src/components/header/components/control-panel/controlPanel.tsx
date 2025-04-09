@@ -35,6 +35,11 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
   const login = useSelector(selectUserLogin)
   const session = useSelector(selectUserSession)
 
+  const onLogout = () => {
+    dispatch(logout(session))
+    sessionStorage.removeItem("userData")
+  }
+
   return (
     <div className={className}>
       <RightAligned>
@@ -45,7 +50,7 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
         ) : (
           <>
             <UserName>{login}</UserName>
-            <StyledLogoutIcon onClick={() => dispatch(logout(session))}>
+            <StyledLogoutIcon onClick={onLogout}>
               <Icon id="fa-sign-out" margin="0 0 0 10px" />
             </StyledLogoutIcon>
           </>

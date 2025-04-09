@@ -9,7 +9,9 @@ export const updateUserRole = async (
 ) => {
   const accessRoles = [ROLE.ADMIN]
 
-  if (!sessions.checkAccess(userSession, accessRoles)) {
+  const access = await sessions.checkAccess(userSession, accessRoles)
+
+  if (!access) {
     return {
       error: "Доступ запрещен",
       res: null,

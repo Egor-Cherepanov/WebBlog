@@ -14,7 +14,8 @@ export const useServerRequest = () => {
       }
 
       const request =
-        ["register", "authorize"].includes(operation) || session == null
+        ["register", "authorize", "fetchPost"].includes(operation) ||
+        session == null
           ? params
           : [session, ...params]
 

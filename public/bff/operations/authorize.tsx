@@ -25,7 +25,6 @@ export const authorize = async (
   }
 
   const session = sessions.create(user)
-  console.log(String(session))
 
   return {
     error: null,

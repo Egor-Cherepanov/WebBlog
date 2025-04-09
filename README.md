@@ -115,6 +115,7 @@ title
 imageUrl
 content
 publishedAt
+
 comments: массив comment:
 id
 author

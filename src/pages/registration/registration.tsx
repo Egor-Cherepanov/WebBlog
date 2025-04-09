@@ -52,6 +52,7 @@ const RegistrationContainer: React.FC<ContainerProps> = ({ className }) => {
           role_id: res.roleId,
         }
         dispatch(setUser(user))
+        sessionStorage.setItem("userData", JSON.stringify(user))
       }
     })
   }

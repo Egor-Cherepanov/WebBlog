@@ -57,7 +57,9 @@ const AuthorizationContainer: React.FC<ContainerProps> = ({ className }) => {
           role_id: res.role_id,
           session: res.session,
         }
+
         dispatch(setUser(user))
+        sessionStorage.setItem("userData", JSON.stringify(user))
       }
     })
   }

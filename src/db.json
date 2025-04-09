@@ -93,10 +93,63 @@
   ],
   "comments": [
     {
-      "id": "",
-      "author_id": "",
-      "post_id": "",
-      "content": ""
+      "id": "d5fb",
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2045-12-16 18:43",
+      "content": "Мой первый комментарий"
+    },
+    {
+      "id": "8b23",
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2047-04-06 00:24",
+      "content": "мой второй комментарий\n"
+    },
+    {
+      "id": "2e93",
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2049-02-22 10:28",
+      "content": "sdcsddscdscsdc"
+    },
+    {
+      "id": "e3bc",
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2055-11-09 00:49",
+      "content": "ww3\n"
+    },
+    {
+      "id": "d7df",
+      "author_id": "001",
+      "post_id": "001",
+      "published_at": "2056-05-18 14:25",
+      "content": "Хорошая статья"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "1120",
+      "hash": "0.90132599202185970099776568531524389982223510742188",
+      "user": {
+        "id": "001",
+        "login": "egor",
+        "password": "qwerty123",
+        "registered_at": "2025-03-11",
+        "role_id": 0
+      }
+    },
+    {
+      "id": "844a",
+      "hash": "0.19564483895748274733250582357868552207946777343750",
+      "user": {
+        "id": "001",
+        "login": "egor",
+        "password": "qwerty123",
+        "registered_at": "2025-03-11",
+        "role_id": 0
+      }
     }
   ]
 }

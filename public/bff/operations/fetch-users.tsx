@@ -5,7 +5,9 @@ import { ROLE } from "../../constants"
 export const fetchUsers = async (userSession: string) => {
   const accessRoles = [ROLE.ADMIN]
 
-  if (!sessions.checkAccess(userSession, accessRoles)) {
+  const access = await sessions.checkAccess(userSession, accessRoles)
+
+  if (!access) {
     return {
       error: "Доступ запрещен",
       res: null,

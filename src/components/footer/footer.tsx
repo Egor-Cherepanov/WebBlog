@@ -12,7 +12,6 @@ const FooterContainer: React.FC<FooterProps> = ({ className }) => {
       .then((response) => response.json() as Promise<WeatherData>)
       .then((data) => {
         setWeatherData(data)
-        console.log(Math.round(data.main.temp))
       })
   }, [])
 

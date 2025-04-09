@@ -82,3 +82,41 @@ export interface UserRowProps extends ContainerProps {
   roles?: Role[]
   onUsersRemove: () => void
 }
+
+export interface Comment {
+  id: string
+  author_id: string
+  post_id: string
+  content: string
+  published_at: string
+  author?: string
+}
+
+export interface PostState {
+  id: string
+  title: string
+  image_url: string
+  content: string
+  published_at: string
+  comments?: Comment[]
+}
+
+export interface PostContentProps {
+  post: PostState
+  className?: string
+}
+
+export interface CommentsProps extends ContainerProps {
+  postId: string
+  comments: Comment[]
+}
+
+export interface CommentProps extends Comment {
+  className?: string
+}
+
+export interface SessionState {
+  id: string
+  hash: string
+  user: User
+}
