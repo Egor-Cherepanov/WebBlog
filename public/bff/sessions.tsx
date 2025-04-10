@@ -26,6 +26,7 @@ export const sessions = {
   async checkAccess(hash: string, accessRoles) {
     const dbSession = await getSession(hash)
 
+    // debugger
     return !!dbSession.user && accessRoles.includes(dbSession.user.role_id)
   },
 }

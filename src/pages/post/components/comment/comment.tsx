@@ -1,15 +1,33 @@
 import styled from "styled-components"
 import { CommentProps } from "../../../../../public/types"
 import { Icon } from "../../../../components"
+import { useDispatch } from "react-redux"
+import { openModal, removeComment, CLOSE_MODAL } from "../../../../actions"
+import { useServerRequest } from "../../../../../public/hooks"
 
 const CommentContainer: React.FC<CommentProps> = ({
+  postId,
   className,
   id,
-  author_id,
   content,
   published_at,
   author,
 }) => {
+  const dispatch = useDispatch()
+  const requestServer = useServerRequest()
+
+  const onCommentRemove = (commentToDeleteId: string) => {
+    dispatch(
+      openModal({
+        text: "Удалить комментарий?",
+        onConfirm: () => {
+          dispatch(removeComment(requestServer, commentToDeleteId, postId))
+          dispatch(CLOSE_MODAL)
+        },
+        onCancel: () => dispatch(CLOSE_MODAL),
+      })
+    )
+  }
   return (
     <div className={className}>
       <div className="comment">
@@ -30,6 +48,7 @@ const CommentContainer: React.FC<CommentProps> = ({
         size="18px"
         margin="0 0 0 10px"
         className="trash-icon"
+        onClick={() => onCommentRemove(id)}
       />
     </div>
   )

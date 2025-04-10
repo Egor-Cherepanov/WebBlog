@@ -113,10 +113,23 @@ export interface CommentsProps extends ContainerProps {
 
 export interface CommentProps extends Comment {
   className?: string
+  postId: string
 }
 
 export interface SessionState {
   id: string
   hash: string
   user: User
+}
+
+export interface ModalState {
+  isOpen: boolean
+  text: string
+  onConfirm: () => void
+  onCancel: () => void
+}
+
+export interface AppState {
+  wasLogout: boolean
+  modal: ModalState
 }

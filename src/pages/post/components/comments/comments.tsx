@@ -54,6 +54,7 @@ const CommentsContainer: React.FC<CommentsProps> = ({
         ) : (
           comments.map(({ id, author_id, content, published_at, author }) => (
             <Comment
+              postId={postId}
               key={id}
               id={id}
               author_id={author_id}
