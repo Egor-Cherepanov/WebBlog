@@ -89,7 +89,7 @@ export interface Comment {
   post_id: string
   content: string
   published_at: string
-  author?: string
+  author: string
 }
 
 export interface PostState {
@@ -132,4 +132,19 @@ export interface ModalState {
 export interface AppState {
   wasLogout: boolean
   modal: ModalState
+}
+
+export interface SpecialPanelProps {
+  className?: string
+  margin?: string
+  published_at: string
+  editButton: string
+  editButtonOnClick: () => void
+}
+
+export interface SavePostParams {
+  id: string
+  imageRef: string
+  titleRef: string
+  contentRef: string
 }

@@ -1,4 +1,4 @@
-import { deleteComment, getComments, getPost } from "../api"
+import { deleteComment, getComments, getPost, getUsers } from "../api"
 import { sessions } from "../sessions"
 import { ROLE } from "../../constants"
 
@@ -24,8 +24,19 @@ export const removePostComment = async (
 
   const comments = await getComments(postId)
 
+  const users = await getUsers()
+
+  const commentsWithAuthor = comments.map((comment) => {
+    const user = users.find(({ id }) => id === comment.author_id)
+
+    return {
+      ...comment,
+      author: user?.login,
+    }
+  })
+
   return {
     error: null,
-    res: { ...post, comments },
+    res: { ...post, comments: commentsWithAuthor },
   }
 }
