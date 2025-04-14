@@ -28,6 +28,7 @@ const CommentContainer: React.FC<CommentProps> = ({
       })
     )
   }
+
   return (
     <div className={className}>
       <div className="comment">

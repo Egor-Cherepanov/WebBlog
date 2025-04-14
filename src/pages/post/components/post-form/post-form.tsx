@@ -1,51 +1,63 @@
 import styled from "styled-components"
-import { useRef } from "react"
+import { useLayoutEffect, useRef, useState } from "react"
 import { Input } from "../../../../components"
 import { PostContentProps, SavePostParams } from "../../../../../public/types"
 import { SpecialPanel } from "../special-panel/special-panel"
 import { sanitazeContent } from "./utils"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom"
-import { savePost } from "../../../../actions"
+import { savePostAsync } from "../../../../actions"
 import { useServerRequest } from "../../../../../public/hooks"
 
 const PostFormContainer: React.FC<PostContentProps> = ({
   className,
   post: { title, id, image_url, content, published_at },
 }) => {
-  const imageRef = useRef<HTMLInputElement | null>(null)
-  const titleRef = useRef<HTMLInputElement | null>(null)
+  const [imageUrlValue, setImageUrlValue] = useState(image_url)
+  const [titleValue, setTitleValue] = useState(title)
   const contentRef = useRef<HTMLDivElement | null>(null)
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const requestServer = useServerRequest()
 
+  useLayoutEffect(() => {
+    setImageUrlValue(image_url)
+    setTitleValue(title)
+  }, [image_url, title])
+
   const onSave = async () => {
-    const newImageUrl = imageRef.current?.value ?? ""
-    const newTitleUrl = titleRef.current?.value ?? ""
     const newContentUrl = sanitazeContent(contentRef.current?.innerHTML ?? "")
 
     const newPostData: SavePostParams = {
       id,
-      imageRef: newImageUrl,
-      titleRef: newTitleUrl,
+      imageRef: imageUrlValue,
+      titleRef: titleValue,
       contentRef: newContentUrl,
     }
 
-    dispatch(savePost(requestServer, newPostData))
-
-    navigate(`/post/${id}`)
+    dispatch(savePostAsync(requestServer, newPostData)).then(({ id }) =>
+      navigate(`/post/${id}`)
+    )
   }
+
+  const onImageChange = ({ target }) => setImageUrlValue(target.value)
+  const onTitleChange = ({ target }) => setTitleValue(target.value)
 
   return (
     <div className={className}>
       <Input
-        ref={imageRef}
-        defaultValue={image_url}
+        value={imageUrlValue}
+        onChange={onImageChange}
         placeholder="Изображение..."
       />
-      <Input ref={titleRef} defaultValue={title} placeholder="Заголовок..." />
+      <Input
+        value={titleValue}
+        onChange={onTitleChange}
+        placeholder="Заголовок..."
+      />
       <SpecialPanel
+        id={id}
         margin="0 0 20px 0 "
         published_at={published_at}
         editButton="fa-floppy-o"
@@ -76,5 +88,7 @@ export const PostForm = styled(PostFormContainer)`
   & .post-text {
     font-size: 18px;
     white-space: pre-line;
+    border: 1px solid #000;
+    min-height: 80px;
   }
 `

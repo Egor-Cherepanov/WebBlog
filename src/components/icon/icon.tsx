@@ -19,5 +19,6 @@ export const Icon = styled(IconContainer)<IconContainerProps>`
   margin: ${({ margin }) => margin || 0};
   color: ${({ disabled }) => (disabled ? "#ccc" : "#000")};
 
-  cursor: pointer;
+  cursor: ${({ onClick, isButton }) =>
+    onClick || isButton ? "pointer" : "default"};
 `

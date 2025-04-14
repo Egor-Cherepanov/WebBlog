@@ -12,9 +12,10 @@ const PostContentContainer: React.FC<PostContentProps> = ({
 
   return (
     <div className={className}>
-      <img src={image_url} alt={title} />
+      {image_url && <img src={image_url} alt={title} />}
       <H2>{title}</H2>
       <SpecialPanel
+        id={id}
         margin="0 0 20px 0"
         published_at={published_at}
         editButton="fa-pencil-square-o"

@@ -37,6 +37,7 @@ export interface IconContainerProps {
   margin?: string
   disabled?: boolean
   onClick?: () => void
+  isButton?: boolean
 }
 
 export interface FooterProps {
@@ -135,6 +136,7 @@ export interface AppState {
 }
 
 export interface SpecialPanelProps {
+  id: string
   className?: string
   margin?: string
   published_at: string
@@ -143,8 +145,14 @@ export interface SpecialPanelProps {
 }
 
 export interface SavePostParams {
-  id: string
+  id?: string
   imageRef: string
   titleRef: string
   contentRef: string
 }
+
+// export interface AddPostParams {
+//   image_url: string
+//   title: string
+//   content: string
+// }

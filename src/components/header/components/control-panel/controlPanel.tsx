@@ -63,10 +63,10 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
           onClick={() => navigate(-1)}
         />
         <Link to="/post">
-          <Icon id="fa-file-text-o" margin="10px 0 0 16px" />
+          <Icon id="fa-file-text-o" margin="10px 0 0 16px" isButton={true} />
         </Link>
         <Link to="/users">
-          <Icon id="fa-users" margin="10px 0 0 16px" />
+          <Icon id="fa-users" margin="10px 0 0 16px" isButton={true} />
         </Link>
       </RightAligned>
     </div>

@@ -1,4 +1,4 @@
-import { updatePost } from "../api"
+import { updatePost, addPost } from "../api"
 import { ROLE } from "../../constants"
 import { sessions } from "../sessions"
 import { SavePostParams } from "../../types"
@@ -18,11 +18,14 @@ export const savePost = async (
     }
   }
 
-  const updatePostJSON = await updatePost(newPostData)
-  const updatedPost = await updatePostJSON.json()
+  const savedPost =
+    newPostData.id === ""
+      ? await addPost(newPostData)
+      : await updatePost(newPostData)
+  // const savedPost = await savedPostJSON.json()
 
   return {
     error: null,
-    res: updatedPost,
+    res: savedPost,
   }
 }
