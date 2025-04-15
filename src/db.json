@@ -19,14 +19,14 @@
       "login": "kolya",
       "password": "12345678",
       "registered_at": "2024-03-14",
-      "role_id": 0
+      "role_id": 1
     },
     {
       "id": "004",
       "login": "dima",
       "password": "12345678",
       "registered_at": "2024-03-14",
-      "role_id": 0
+      "role_id": 2
     }
   ],
   "roles": [
@@ -112,6 +112,13 @@
       "post_id": "002",
       "published_at": "2041-04-13 17:41",
       "content": "cssdccsddcds"
+    },
+    {
+      "id": "1934",
+      "author_id": "002",
+      "post_id": "006",
+      "published_at": "2052-10-10 05:13",
+      "content": "что за бред то"
     }
   ],
   "sessions": [

@@ -22,7 +22,6 @@ const UsersContainer: React.FC<ContainerProps> = ({ className }) => {
         setErrorMessage(usersRes.error || rolesRes.error)
         return
       }
-      console.log("useEffect")
 
       setUsers(usersRes.res)
       setRoles(rolesRes.res)

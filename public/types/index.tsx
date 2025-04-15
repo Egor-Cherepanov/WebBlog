@@ -151,8 +151,11 @@ export interface SavePostParams {
   contentRef: string
 }
 
-// export interface AddPostParams {
-//   image_url: string
-//   title: string
-//   content: string
-// }
+export interface PostCardProps {
+  className?: string
+  id: string | number
+  title: string
+  published_at: string
+  comments_count: string | number
+  image_url: string
+}
