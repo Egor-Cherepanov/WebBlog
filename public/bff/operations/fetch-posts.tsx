@@ -1,8 +1,11 @@
 import { getPosts, getComments } from "../api"
 import { getCommentsCount } from "../utils"
 
-export const fetchPosts = async () => {
-  const [posts, comments] = await Promise.all([getPosts(), getComments("")])
+export const fetchPosts = async (page: number, limit: number) => {
+  const [{ posts, total }, comments] = await Promise.all([
+    getPosts(page, limit),
+    getComments(""),
+  ])
 
   return {
     error: null,
@@ -10,5 +13,6 @@ export const fetchPosts = async () => {
       ...post,
       comments_count: getCommentsCount(comments, post.id),
     })),
+    total,
   }
 }

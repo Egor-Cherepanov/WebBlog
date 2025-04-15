@@ -159,3 +159,10 @@ export interface PostCardProps {
   comments_count: string | number
   image_url: string
 }
+
+export interface PaginationProps {
+  className?: string
+  setPage: () => void
+  page: number
+  totalPages: number
+}

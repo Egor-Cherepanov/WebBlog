@@ -2,17 +2,24 @@ import styled from "styled-components"
 import { ContainerProps } from "../../../public/types"
 import { useEffect, useState } from "react"
 import { useServerRequest } from "../../../public/hooks"
-import { PostCard } from "./components"
+import { PostCard, Pagination } from "./components"
+import { PAGINATION_LIMIT } from "../../../public/constants"
 
 const MainPageContainer: React.FC<ContainerProps> = ({ className }) => {
   const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const [totalPosts, setTotalPosts] = useState(0)
   const requestServer = useServerRequest()
 
   useEffect(() => {
-    requestServer("fetchPosts").then((postsRes) => {
+    requestServer("fetchPosts", page, PAGINATION_LIMIT).then((postsRes) => {
       setPosts(postsRes.res)
+
+      setTotalPosts(postsRes.total)
     })
-  }, [requestServer])
+  }, [requestServer, page])
+
+  const totalPages = Math.ceil(totalPosts / PAGINATION_LIMIT)
 
   return (
     <div className={className}>
@@ -32,6 +39,7 @@ const MainPageContainer: React.FC<ContainerProps> = ({ className }) => {
             )
           )}
       </div>
+      <Pagination setPage={setPage} page={page} totalPages={totalPages} />
     </div>
   )
 }

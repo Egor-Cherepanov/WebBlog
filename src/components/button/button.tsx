@@ -2,7 +2,6 @@ import styled from "styled-components"
 import { ButtonHTMLAttributes } from "react"
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  // className?: string
   $width?: string
 }
 
@@ -24,5 +23,5 @@ export const Button = styled(ButtonContainer)<{ $width?: string }>`
   background-color: rgb(238, 238, 238);
   width: ${({ $width }) => $width || "100%"}; // По умолчанию 100% ширины
 
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "default" : "pointer")};
 `
