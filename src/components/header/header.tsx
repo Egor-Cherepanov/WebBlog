@@ -33,4 +33,5 @@ export const Header = styled(HeaderContainer)`
   height: 120px;
   padding: 20px 40px;
   box-shadow: 0px -2px 12px #000;
+  z-index: 20;
 `

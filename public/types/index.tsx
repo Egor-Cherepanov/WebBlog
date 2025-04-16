@@ -166,3 +166,9 @@ export interface PaginationProps {
   page: number
   totalPages: number
 }
+
+export interface SearchProps {
+  className?: string
+  onChange: () => void
+  searchPhrase: string
+}
