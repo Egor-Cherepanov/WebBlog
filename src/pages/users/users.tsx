@@ -1,19 +1,27 @@
 import styled from "styled-components"
-import { H2, Content } from "../../components"
+import { H2, PrivateContent } from "../../components"
 import { ContainerProps, Role, User } from "../../../public/types"
 import { UserRow, TableHeader } from "./components"
 import { useServerRequest } from "../../../public/hooks"
+import { checkAccess } from "../../utils"
 import { useEffect, useState } from "react"
 import { ROLE } from "../../../public/constants"
+import { useSelector } from "react-redux"
+import { selectUserRole } from "../../selectors"
 
 const UsersContainer: React.FC<ContainerProps> = ({ className }) => {
   const [roles, setRoles] = useState<Role[]>([])
   const [users, setUsers] = useState<User[]>([])
   const [errorMessage, setErrorMessage] = useState("")
   const [shoudUpdateUserList, setShoudUpdateUserList] = useState(false)
+  const userRole = useSelector(selectUserRole)
   const requestServer = useServerRequest()
 
   useEffect(() => {
+    if (!checkAccess([ROLE.ADMIN], userRole)) {
+      return
+    }
+
     Promise.all([
       requestServer("fetchUsers"),
       requestServer("fetchRoles"),
@@ -26,9 +34,12 @@ const UsersContainer: React.FC<ContainerProps> = ({ className }) => {
       setUsers(usersRes.res)
       setRoles(rolesRes.res)
     })
-  }, [requestServer, shoudUpdateUserList])
+  }, [requestServer, shoudUpdateUserList, userRole])
 
   const onUsersRemove = (userId: string) => {
+    if (!checkAccess([ROLE.ADMIN], userRole)) {
+      return
+    }
     requestServer("removeUser", userId).then(() => {
       setShoudUpdateUserList(!shoudUpdateUserList)
     })
@@ -36,7 +47,7 @@ const UsersContainer: React.FC<ContainerProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <Content error={errorMessage}>
+      <PrivateContent access={[ROLE.ADMIN]} error={errorMessage}>
         <H2>Пользователи</H2>
         <div>
           <TableHeader />
@@ -53,12 +64,13 @@ const UsersContainer: React.FC<ContainerProps> = ({ className }) => {
               />
             ))}
         </div>
-      </Content>
+      </PrivateContent>
     </div>
   )
 }
 
 export const Users = styled(UsersContainer)`
+  padding: 40px 0;
   display: flex;
   align-items: center;
   flex-direction: column;
