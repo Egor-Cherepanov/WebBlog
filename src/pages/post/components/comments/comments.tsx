@@ -4,9 +4,10 @@ import styled from "styled-components"
 import { Icon } from "../../../../components"
 import { CommentsProps } from "../../../../../public/types"
 import { useDispatch, useSelector } from "react-redux"
-import { selectUserId } from "../../../../selectors"
+import { selectUserId, selectUserRole } from "../../../../selectors"
 import { useServerRequest } from "../../../../../public/hooks"
 import { addComment } from "../../../../actions"
+import { ROLE } from "../../../../../public/constants"
 
 const CommentsContainer: React.FC<CommentsProps> = ({
   className,
@@ -17,6 +18,9 @@ const CommentsContainer: React.FC<CommentsProps> = ({
   const currentUserId = useSelector(selectUserId)
   const dispatch = useDispatch()
   const requestServer = useServerRequest()
+  const roleId = useSelector(selectUserRole)
+
+  const isGuest = roleId === ROLE.GUEST
 
   const onNewCommentAdd = (
     requestServer: (operation: string, ...params: any[]) => Promise<any>,
@@ -30,22 +34,24 @@ const CommentsContainer: React.FC<CommentsProps> = ({
 
   return (
     <div className={className}>
-      <div className="new-comment">
-        <textarea
-          name="comment"
-          value={newComment}
-          placeholder="Комментарий..."
-          onChange={({ target }) => setNewComment(target.value)}
-        ></textarea>
-        <Icon
-          id="fa-paper-plane-o"
-          size="18px"
-          margin="0 0 0 10px"
-          onClick={() =>
-            onNewCommentAdd(requestServer, postId, currentUserId, newComment)
-          }
-        />
-      </div>
+      {!isGuest && (
+        <div className="new-comment">
+          <textarea
+            name="comment"
+            value={newComment}
+            placeholder="Комментарий..."
+            onChange={({ target }) => setNewComment(target.value)}
+          ></textarea>
+          <Icon
+            id="fa-paper-plane-o"
+            size="18px"
+            margin="0 0 0 10px"
+            onClick={() =>
+              onNewCommentAdd(requestServer, postId, currentUserId, newComment)
+            }
+          />
+        </div>
+      )}
       <div className="comments">
         {comments.length == 0 ? (
           <div className="no-comments">

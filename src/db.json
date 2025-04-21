@@ -149,18 +149,18 @@
   ],
   "comments": [
     {
-      "id": "def8",
-      "author_id": "002",
-      "post_id": "002",
-      "published_at": "2041-04-13 17:41",
-      "content": "cssdccsddcds"
-    },
-    {
       "id": "1934",
       "author_id": "002",
       "post_id": "006",
       "published_at": "2052-10-10 05:13",
       "content": "что за бред то"
+    },
+    {
+      "author_id": "001",
+      "post_id": "002",
+      "published_at": "2040-09-26 11:25",
+      "content": "Новый комментарий",
+      "id": "t6cfkb9"
     }
   ],
   "sessions": [
@@ -174,6 +174,17 @@
         "registered_at": "2025-03-11",
         "role_id": 0
       }
+    },
+    {
+      "hash": "0.89928836489911234686189800413558259606361389160156",
+      "user": {
+        "id": "003",
+        "login": "kolya",
+        "password": "12345678",
+        "registered_at": "2024-03-14",
+        "role_id": 1
+      },
+      "id": "BDAl19w"
     }
   ]
 }

@@ -1,10 +1,13 @@
 import styled from "styled-components"
 import { Icon } from "../../../../components"
 import { SpecialPanelProps } from "../../../../../public/types"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { CLOSE_MODAL, openModal, removePostAsync } from "../../../../actions"
 import { useServerRequest } from "../../../../../public/hooks"
 import { useNavigate } from "react-router-dom"
+import { ROLE } from "../../../../../public/constants"
+import { checkAccess } from "../../../../utils"
+import { selectUserRole } from "../../../../selectors"
 
 const SpecialPanelContainer: React.FC<SpecialPanelProps> = ({
   id,
@@ -16,6 +19,9 @@ const SpecialPanelContainer: React.FC<SpecialPanelProps> = ({
   const dispatch = useDispatch()
   const requestServer = useServerRequest()
   const navigate = useNavigate()
+  const roleId = useSelector(selectUserRole)
+
+  const isAdmin = checkAccess([ROLE.ADMIN], roleId)
 
   const onPostRemove = (postToDeleteId: string) => {
     dispatch(
@@ -40,18 +46,19 @@ const SpecialPanelContainer: React.FC<SpecialPanelProps> = ({
           {published_at}
         </div>
       )}
-
-      <div className="buttons-panel">
-        <Icon id={editButton} size="18px" onClick={editButtonOnClick} />
-        {published_at && (
-          <Icon
-            id="fa-trash-o"
-            margin="0 0 0 10px"
-            size="18px"
-            onClick={() => onPostRemove(id)}
-          />
-        )}
-      </div>
+      {isAdmin && (
+        <div className="buttons-panel">
+          <Icon id={editButton} size="18px" onClick={editButtonOnClick} />
+          {published_at && (
+            <Icon
+              id="fa-trash-o"
+              margin="0 0 0 10px"
+              size="18px"
+              onClick={() => onPostRemove(id)}
+            />
+          )}
+        </div>
+      )}
     </div>
   )
 }

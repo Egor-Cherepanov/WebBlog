@@ -1,9 +1,12 @@
 import styled from "styled-components"
 import { CommentProps } from "../../../../../public/types"
 import { Icon } from "../../../../components"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { openModal, removeComment, CLOSE_MODAL } from "../../../../actions"
 import { useServerRequest } from "../../../../../public/hooks"
+import { selectUserRole } from "../../../../selectors"
+import { ROLE } from "../../../../../public/constants"
+import { checkAccess } from "../../../../utils"
 
 const CommentContainer: React.FC<CommentProps> = ({
   postId,
@@ -15,6 +18,9 @@ const CommentContainer: React.FC<CommentProps> = ({
 }) => {
   const dispatch = useDispatch()
   const requestServer = useServerRequest()
+  const roleId = useSelector(selectUserRole)
+
+  const isArminOrModerator = checkAccess([ROLE.ADMIN, ROLE.MODERATOR], roleId)
 
   const onCommentRemove = (commentToDeleteId: string) => {
     dispatch(
@@ -44,13 +50,15 @@ const CommentContainer: React.FC<CommentProps> = ({
         </div>
         <div className="comment-text">{content}</div>
       </div>
-      <Icon
-        id="fa-trash-o"
-        size="18px"
-        margin="0 0 0 10px"
-        className="trash-icon"
-        onClick={() => onCommentRemove(id)}
-      />
+      {isArminOrModerator && (
+        <Icon
+          id="fa-trash-o"
+          size="18px"
+          margin="0 0 0 10px"
+          className="trash-icon"
+          onClick={() => onCommentRemove(id)}
+        />
+      )}
     </div>
   )
 }

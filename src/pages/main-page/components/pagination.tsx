@@ -46,9 +46,12 @@ export const Pagination = styled(PaginationContainer)`
   width: 100%;
   margin: 0 0 20px;
   padding: 0 20px;
+  gap: 10px; 
 
-  & .button {
-    margin: 0 5px;
+
+  & > ${Button} {
+    margin: 0;  
+    padding: 5px 10px;  
   }
 
   & .current-page {

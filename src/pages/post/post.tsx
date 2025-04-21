@@ -19,6 +19,9 @@ const PostContainer: React.FC<ContainerProps> = ({ className }) => {
   const isCreating = useMatch("/post")
   const requestServer = useServerRequest()
   const post: PostState = useSelector(selectPost)
+  // const roleId = useSelector(selectUserRole)
+
+  // const isGuest = roleId === ROLE.GUEST
 
   useLayoutEffect(() => {
     dispatch(RESET_POST_DATA)
@@ -55,6 +58,7 @@ const PostContainer: React.FC<ContainerProps> = ({ className }) => {
     ) : (
       <div className={className}>
         <PostContent post={post} />
+
         <Comments comments={post.comments || []} postId={post.id} />
       </div>
     )

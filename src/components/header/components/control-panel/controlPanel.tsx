@@ -9,6 +9,7 @@ import { ContainerProps } from "../../../../../public/types"
 import { Icon, Button } from "../../../../components"
 import { Link, useNavigate } from "react-router-dom"
 import { logout } from "../../../../actions"
+import { checkAccess } from "../../../../utils"
 import styled from "styled-components"
 
 const RightAligned = styled.div`
@@ -40,6 +41,8 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
     sessionStorage.removeItem("userData")
   }
 
+  const isAdmin = checkAccess([ROLE.ADMIN], roleId)
+
   return (
     <div className={className}>
       <RightAligned>
@@ -51,7 +54,7 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
           <>
             <UserName>{login}</UserName>
             <StyledLogoutIcon onClick={onLogout}>
-              <Icon id="fa-sign-out" margin="0 0 0 10px" />
+              <Icon id="fa-sign-out" margin="0 0 0 10px" isButton={true} />
             </StyledLogoutIcon>
           </>
         )}
@@ -62,12 +65,21 @@ const ControlPanelContainer: React.FC<ContainerProps> = ({ className }) => {
           margin="10px 0 0 0"
           onClick={() => navigate(-1)}
         />
-        <Link to="/post">
-          <Icon id="fa-file-text-o" margin="10px 0 0 16px" isButton={true} />
-        </Link>
-        <Link to="/users">
-          <Icon id="fa-users" margin="10px 0 0 16px" isButton={true} />
-        </Link>
+        {isAdmin && (
+          <>
+            <Link to="/post">
+              <Icon
+                id="fa-file-text-o"
+                margin="10px 0 0 16px"
+                isButton={true}
+              />
+            </Link>
+
+            <Link to="/users">
+              <Icon id="fa-users" margin="10px 0 0 16px" isButton={true} />
+            </Link>
+          </>
+        )}
       </RightAligned>
     </div>
   )
